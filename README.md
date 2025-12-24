@@ -105,27 +105,6 @@ REST API yang dibangun dengan Laravel untuk mengelola data jurnal dan autentikas
    php artisan serve
    ```
 
-### API Endpoints
-
-#### Authentication
-```http
-POST /api/login
-{
-  "nis": "12345678",
-  "password": "password123"
-}
-
-POST /api/logout (protected)
-GET  /api/profile (protected)
-GET  /api/user (protected)
-```
-
-#### User Management
-```http
-GET /api/users?search=john&rombel=XII RPL 1&page=1&per_page=10
-POST /api/upload-photo (protected)
-```
-
 ### Database Schema
 ```sql
 CREATE TABLE users (
