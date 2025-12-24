@@ -142,31 +142,42 @@ CREATE TABLE users (
 );
 ```
 
-### API Response Format
 
-#### Success Response
-```json
+```
+API Endpoints Lengkap
+Authentication
+1. Login
+http
+POST /api/login
+Content-Type: application/json
+
+{
+  "nis": "12345678",
+  "password": "password123"
+}
+Response Success (200):
+
+json
 {
   "success": true,
   "message": "Login berhasil",
   "data": {
     "user": {
-      "id": 1,
-      "name": "John Doe",
+      "id": 3,
+      "name": "Zahran Fairuz Rahman",
       "nis": "12345678",
-      "rombel": "XII RPL 1",
-      "rayon": "Cicurug 1",
-      "grade": "XII",
-      "photo_profile": null
+      "rombel": "PPLG XI-1",
+      "rayon": "Cicurug 9",
+      "grade": "XI",
+      "photo_profile": "profile_photos/profile_3_1766376392.jpg"
     },
-    "token": "1|abc123...",
+    "token": "4|QkueWp09u8cy9E3QTf0TIxOcestUgM4qLtjOco2k271864d0",
     "token_type": "Bearer"
   }
 }
-```
+Response Error (401):
 
-#### Error Response
-```json
+json
 {
   "success": false,
   "message": "NIS atau password salah",
@@ -174,7 +185,118 @@ CREATE TABLE users (
     "credentials": ["NIS atau password tidak valid"]
   }
 }
-```
+2. Logout (Protected)
+http
+POST /api/logout
+Authorization: Bearer {token}
+Response Success (200):
+
+json
+{
+  "success": true,
+  "message": "Logout berhasil"
+}
+3. Get Profile (Protected)
+http
+GET /api/profile
+Authorization: Bearer {token}
+Response Success (200):
+
+json
+{
+  "success": true,
+  "message": "Profile berhasil diambil",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "Nama Siswa",
+      "nis": "12345678",
+      "rombel": "XII RPL 1",
+      "rayon": "Cicurug 1",
+      "grade": "XII",
+      "photo_profile": "profile_photos/profile_1_1766370347.png",
+      "created_at": "2024-01-01T00:00:00.000000Z",
+      "updated_at": "2024-01-01T00:00:00.000000Z"
+    }
+  }
+}
+User Management
+4. Get All Users (Protected)
+http
+GET /api/users
+Authorization: Bearer {token}
+Parameters Query:
+
+search (optional): Pencarian berdasarkan nama atau NIS
+
+rombel (optional): Filter berdasarkan rombel
+
+rayon (optional): Filter berdasarkan rayon
+
+grade (optional): Filter berdasarkan grade
+
+page (optional): Halaman (default: 1)
+
+per_page (optional): Item per halaman (default: 10)
+
+Response Success (200):
+
+json
+{
+  "success": true,
+  "message": "Data siswa berhasil diambil",
+  "data": {
+    "users": [
+      {
+        "id": 1,
+        "name": "Abdul Hadi",
+        "nis": "12345677",
+        "rombel": "PPLG X-1",
+        "rayon": "Cicurug 9",
+        "grade": "X",
+        "photo_profile": null,
+        "created_at": "2025-12-22T02:38:50.000000Z",
+        "updated_at": "2025-12-22T02:38:50.000000Z"
+      },
+      {
+        "id": 2,
+        "name": "Muhammad Fazri",
+        "nis": "12344321",
+        "rombel": "PPLG X-2",
+        "rayon": "Cicurug 9",
+        "grade": "X",
+        "photo_profile": null,
+        "created_at": "2025-12-22T02:38:50.000000Z",
+        "updated_at": "2025-12-22T02:38:50.000000Z"
+      }
+    ],
+    "pagination": {
+      "current_page": 1,
+      "per_page": 5,
+      "total": 3,
+      "last_page": 1,
+      "from": 1,
+      "to": 3
+    }
+  }
+}
+5. Upload Photo (Protected)
+http
+POST /api/upload-photo
+Authorization: Bearer {token}
+Content-Type: multipart/form-data
+
+photo: [file]
+Response Success (200):
+
+json
+{
+  "success": true,
+  "message": "Foto profil berhasil diupload",
+  "data": {
+    "photo_url": "http://localhost:8000/storage/profile_photos/profile_3_1766542801.jpg",
+    "photo_path": "profile_photos/profile_3_1766542801.jpg"
+  }
 
 ### Authentication Flow
 
