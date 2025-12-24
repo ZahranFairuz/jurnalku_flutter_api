@@ -143,21 +143,28 @@ CREATE TABLE users (
 ```
 
 
-```
 API Endpoints Lengkap
 Authentication
 1. Login
 http
+
+```
 POST /api/login
 Content-Type: application/json
 
+```
+
+```
 {
   "nis": "12345678",
   "password": "password123"
 }
+
+
+```
 Response Success (200):
 
-json
+```
 {
   "success": true,
   "message": "Login berhasil",
@@ -177,7 +184,6 @@ json
 }
 Response Error (401):
 
-json
 {
   "success": false,
   "message": "NIS atau password salah",
@@ -185,24 +191,38 @@ json
     "credentials": ["NIS atau password tidak valid"]
   }
 }
+
+```
+
 2. Logout (Protected)
-http
+   
+```
 POST /api/logout
 Authorization: Bearer {token}
 Response Success (200):
 
-json
+```
+
+```
 {
   "success": true,
   "message": "Logout berhasil"
 }
+
+```
+
 3. Get Profile (Protected)
-http
+
+```
 GET /api/profile
 Authorization: Bearer {token}
+
+```
 Response Success (200):
 
 json
+
+```
 {
   "success": true,
   "message": "Profile berhasil diambil",
@@ -220,27 +240,20 @@ json
     }
   }
 }
+
+```
 User Management
 4. Get All Users (Protected)
-http
+
+```
 GET /api/users
 Authorization: Bearer {token}
-Parameters Query:
 
-search (optional): Pencarian berdasarkan nama atau NIS
-
-rombel (optional): Filter berdasarkan rombel
-
-rayon (optional): Filter berdasarkan rayon
-
-grade (optional): Filter berdasarkan grade
-
-page (optional): Halaman (default: 1)
-
-per_page (optional): Item per halaman (default: 10)
+```
 
 Response Success (200):
 
+```
 json
 {
   "success": true,
@@ -280,15 +293,20 @@ json
     }
   }
 }
+```
 5. Upload Photo (Protected)
-http
+
+```
 POST /api/upload-photo
 Authorization: Bearer {token}
 Content-Type: multipart/form-data
 
+```
+
 photo: [file]
 Response Success (200):
 
+```
 json
 {
   "success": true,
@@ -297,6 +315,8 @@ json
     "photo_url": "http://localhost:8000/storage/profile_photos/profile_3_1766542801.jpg",
     "photo_path": "profile_photos/profile_3_1766542801.jpg"
   }
+
+```
 
 ### Authentication Flow
 
